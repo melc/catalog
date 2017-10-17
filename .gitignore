@@ -1,0 +1,19 @@
+# Packages #
+############
+.tox
+.coverage
+*.egg-info
+catenv
+
+# Logs and databases #
+######################
+*.log
+*.sql
+
+# Python #
+##########
+*.pyc
+
+# Configuration #
+#################
+config.py

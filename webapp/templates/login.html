@@ -1,0 +1,40 @@
+<div class="modal fade" id="login-menu" tabindex="-1" role="dialog" aria-labelledby="login-menu"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add-cat-title">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a href="{{ url_for('login.login', api='google') }}" class="btn btn-block btn-social btn-google">
+                    <span class="fa fa-google"></span> Log in With Google</a>
+
+                <br/>
+                <a href="{{ url_for('login.login', api='facebook') }}" class="btn btn-block btn-social btn-facebook">
+                    <span class="fa fa-facebook"></span> Log in With Facebook</a>
+            </div>
+            <div class="footer">
+                <br/>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if "error" not in message[1] %}
+                                <div class="alert alert-info">
+                                    <strong>Success! </strong> {{ message[1] }}
+                                </div>
+                            {% endif %}
+                            {% if "error" in message[1] %}
+                                <div class="alert alert-warning">
+                                    {{ message[1] }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</div>

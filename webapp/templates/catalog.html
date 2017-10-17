@@ -1,0 +1,112 @@
+{# Display All Categories and Items Information #}
+<div class="row">
+    <div class="col-6">
+        <div class="list-group" id="list-tab" role="tablist">
+            <h4>Categories
+                {% if find_user is not none and current_user.is_authenticated %}
+                    <a href="#" class="cat-btn-add" id="cat-btn-add" data-toggle="modal" data-target="#add-cat">
+                        <i class="fa fa-plus-circle fa-red fa-add" aria-hidden="true" data-toggle="tooltip"
+                           data-placement="bottom" title="Add Category"></i></a>
+                {% endif %}
+            </h4>
+            {% for catList in catLists %}
+                <div class="category_flex list-group-item list-group-item-action">
+
+                    <div class="category_box"><a class="list-group-item list-group-item-action"
+                                                 id="list-cat-{{ catList['id'] }}-list" data-toggle="list"
+                                                 href="#list-cat-{{ catList['id'] }}" role="tab"
+                                                 aria-controls="{{ catList['id'] }}">{{ catList["name"] }}</a></div>
+                    {% if find_user is not none and current_user.is_authenticated %}
+                        <div class="cat-edit-icon">
+                            <a href="#" class="edit-cat-btn" id="cat-btn-edit-{{ catList['id'] }}" data-toggle="modal"
+                               data-target="#edit-cat-{{ catList['id'] }}">
+                                <i class="fa fa-pencil fa-red fa-add" aria-hidden="true" data-toggle="tooltip"
+                                   data-placement="bottom" title="Edit Category"></i></a>
+                        </div>
+                        <div class="item_add_icon"><a href="#" class="add-item-btn"
+                                                      id="item-btn-add-{{ catList['id'] }}" data-toggle="modal"
+                                                      data-target="#add-item-{{ catList['id'] }}">
+                            <i class="fa fa-plus-square-o fa-red fa-add" aria-hidden="true" data-toggle="tooltip"
+                               data-placement="bottom" title="Add Item"></i></a></div>
+
+                        {% include 'add_category.html' %}
+                        {% include 'edit_category.html' %}
+                        {% include 'add_item.html' %}
+
+                    {% endif %}
+                </div>
+
+                {######################################################}
+                {#  JS functions                                      #}
+                {######################################################}
+
+                <script type="text/javascript">
+                    $(document).ready(function () {
+
+                        $('#list-cat-{{ catList["id"] }}-list').on("click", function (event) {
+                        {# click on category to call js func to redirect to a new page #}
+                        {# with category name as querystring #}
+
+                            catList = {{ catList|tojson }};
+                            baseURL = "{{ url_for('category', name='REPLACE') }}";
+                            var url = baseURL.replace('REPLACE', catList["name"]);
+                            window.location.href = url;
+                        });
+
+
+                        $(".modal").on("hidden.bs.modal", function(){
+                        {# click on cancel button to empty flash messages #}
+                            $(".modal-error").html("");
+                        });
+                    });
+                </script>
+                {# end of javascript #}
+
+            {% endfor %}
+
+
+            {###########################################################}
+            {# Call javascript function to highlight the selected      #}
+            {# category and display its items                          #}
+            {###########################################################}
+            {%  if boolHome == 'False' %}             # boolHome is a passing parameter
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        countCats = {{ countCats|tojson }};
+                        $("#list-cat-{{ countCats['id'] }}-list").tab("show");
+                        $("#list-cat-{{ countCats['id'] }}").tab("show");
+                    });
+                </script>
+            {% endif %}
+            {# end of javacript #}
+
+            {##########################################################}
+            {# if error (modal is not 'none'), open modal with form   #}
+            {# to display error messages and prompt to re-enter       #}
+            {##########################################################}
+            {%  if modal != 'None'  %}
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#{{ modal }}').modal("show");
+                    });
+                </script>
+            {%  endif %}
+
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="tab-content" id="nav-tabContent">
+            {% if boolHome == 'True' %}
+                <h4>Latest Items</h4>
+                <div class="tab-pane fade show active" id="list-recentitem" role="tabpanel"
+                     aria-labelledby="list-recentitem-list">
+                    {% for list in lateLists %}
+                        <p>{{ list["title"] }}</p>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {% include 'item.html' %}
+            {% endif %}
+        </div>
+    </div>
+</div>
