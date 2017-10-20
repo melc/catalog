@@ -2,7 +2,7 @@ from datetime import timedelta
 from flask import request, render_template, flash, g, session, jsonify
 from flask_login import login_required, current_user
 
-from webapp import app
+from webapp.app import app
 from webapp.forms import AddItem, EditItem, DeleteItem, AddCat, EditCat, flash_errors
 
 from webapp.populate import insert_cat, update_cat, insert_item, update_item, delete_item, \

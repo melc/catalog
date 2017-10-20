@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
-from webapp import db
+from webapp.app import db
 
 #####################################################################
 #  Create tables: category and item

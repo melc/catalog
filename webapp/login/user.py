@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, url_for, request, session
 from flask_login import logout_user
 
-from webapp import google, facebook, login_manager
+from webapp.app import google, facebook, login_manager
 from webapp.login.models import User
 from webapp.login.populate import auth_user
 

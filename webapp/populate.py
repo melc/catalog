@@ -1,5 +1,5 @@
 from sqlalchemy.sql import exists, text, func
-from webapp import db
+from webapp.app import db
 from webapp.models import Item, Category
 from flask import flash
 
