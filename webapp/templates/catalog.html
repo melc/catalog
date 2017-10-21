@@ -69,7 +69,7 @@
             {# Call javascript function to highlight the selected      #}
             {# category and display its items                          #}
             {###########################################################}
-            {%  if boolHome == 'False' %}             # boolHome is a passing parameter
+            {%  if boolHome == 'False' %}          {# boolHome is a passing parameter #}
                 <script type="text/javascript">
                     $(document).ready(function () {
                         countCats = {{ countCats|tojson }};
