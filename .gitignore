@@ -17,3 +17,6 @@ catenv
 # Configuration #
 #################
 config.py
+
+# virtualenv
+venv
