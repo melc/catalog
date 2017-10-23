@@ -1,5 +1,6 @@
 # Catalog App
-[http://clappaws.club/](http://clappaws.club/)  [http://34.214.27.203/](http://34.214.27.203/)
+[http://clappaws.club/](http://clappaws.club/)   
+[http://34.214.27.203/](http://34.214.27.203/)
 
 Catalog app is a small restful CRUD app with python flask and postgresql sqlalchemy deploying on
 apache2 server hosted on AWS lightsail ubuntu 16.04 LTS. This app is to display sport equipments categories and items
@@ -54,12 +55,16 @@ HTTP (port 80), and NTP (port 123)
 - Download virtual box from *https://www.virtualbox.org/wiki/Download_Old_Builds_5_1*
 - Follow the instructions to setup virtualbox
 
-### 2. Install Vagrant
+### 2. Install Git
+- Download git from *https://git-scm.com/downloads*
+- follow the instructions to set up git bash 
+
+### 3. Install Vagrant
 - Download vagrant from *https://www.vagrantup.com/downloads*
 - Follow the instructions to setup vagrant.  *(Note: if the current version is non-compatiable with your OS,
 downgrade the version)*
 
-### 3. Configure Virtual Machine Environment
+### 4. Configure Virtual Machine Environment
 - Download from *https://github.com/udacity/fullstack-nanodegree-vm*
 - Download source codes from *https://github.com/melc/catalog*
 
