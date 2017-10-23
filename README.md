@@ -64,7 +64,7 @@ HTTP (port 80), and NTP (port 123)
 - Follow the instructions to setup vagrant.  *(Note: if the current version is non-compatiable with your OS,
 downgrade the version)*
 
-### 4. Configure Virtual Machine Environment
+### 4. Download Vagrantfile and Source Codes
 - Download from *https://github.com/udacity/fullstack-nanodegree-vm*
 - Download source codes from *https://github.com/melc/catalog*
 
@@ -73,6 +73,23 @@ downgrade the version)*
     cd catalog
     git clone https://github.com/melc/catalog
     ```
+- Createa a new file *config.py", copy the following lines of codes and paste to the 
+file *config.py*
+   
+    ```
+    import os
+
+    DEBUG = True
+    CSRF_ENABLED = True
+    SECRET_KEY = os.urandom(20)
+    GOOGLE_CLIENT_ID = <google client_id>
+    GOOGLE_CLIENT_SECRET = <google client secret>
+    FACEBOOK_APP_ID = <facebook app id>
+    FACEBOOK_APP_SECRET = <facebook app secret>
+    SQLALCHEMY_DATABASE_URI = 'postgresql://vagrant:vagrant@localhost:5432/catalog'
+    ```
+
+### 5. Configure Virtual Machine
 - Install ubuntu 16.04 LTS
 
     ```
@@ -83,7 +100,34 @@ downgrade the version)*
 
     `vagrant ssh`     *(note: $ will be changed to vagrant@vagrant:~$)*
 
-### 5. Launch the Application
+### 6. Launch the Application
+- Reset database user *vagrant* password if prompted
+    
+    ```
+    psql postgres
+    ALTER ROLE vagrant WITH ENCRYPTED 
+    ```
+    
+- Create database *catalog*
+    
+    ```
+    psql vagrant
+    CREATE DATABASE catalog;
+    ```
+- Replace line of code in the file *run.py*, 
+    
+    ```
+    old code: app.run(debug=True)
+    
+    new code: app.run(debug=True, host='0.0.0.0', port=8000)
+    ```
+- Replace line of code in the file *app.py"  *(webapp/app.py)*
+    
+    ```
+    old code: app.config.from_pyfile('/var/www/catalog/config.py')
+    
+    new code: app.config.from_object('config')
+    ```    
 - Launch run.py
 
     `python3.5 run.py`
@@ -94,12 +138,12 @@ downgrade the version)*
 - Create an account on *http://aws.amazon.com*
 - On AWS Managament Console select Lightsail
 - Choose OS only Ubuntu 16.04 LTS
-- Change SSH key pair from default to a new ssh key pairs and download to your local machine
+- Change SSH key pair from default to a new ssh key pairs and download to your host machine
 - Create Instance and Static IP, attach static ip to instance
 
 ### 2. Configure the Firewall (Change ssh port from 22 to 2200)
-- Open the file /etc/ssh/sshd_config on local machine, change the port number 22 to 2200.
-- Click on the button "Connect using SSH", and execute the following commands on remote machine
+- Open the file /etc/ssh/sshd_config on host machine, change the port number 22 to 2200.
+- Click on the button "Connect using SSH", and execute the following commands on virtual machine
     ```
     sudo service ssh restart
     sudo ufw status
@@ -128,15 +172,15 @@ downgrade the version)*
 - Update external firewall by clicking on the AWS lightsail instance, then selecting the 'Networking' 
 tab, and configuring the firewall to match the internal firewall settings above (123(UDP) and 
 2200(TCP));
-- Change the permission of ssh key pairs file to readonly on local machine
+- Change the permission of ssh key pairs file to readonly on host machine
 
     `chmod 600 </path/to/ssh key pairs>.pem`
 
-- Logon remote machine
+- Logon virtual machine
 
     `ssh -i </path/to/ssh key pairs>.pem -p 2200 ubuntu@<aws lightsail public ip>`
 
-### 3. Create New User *grader* With `sudo` Permission on Remote Machine
+### 3. Create New User *grader* With `sudo` Permission on Virtual Machine
 - Create a new user *grader*
 
     `sudo adduser grader`
@@ -171,8 +215,8 @@ tab, and configuring the firewall to match the internal firewall settings above 
 
     >   (ALL : ALL) ALL
 
-### 4. Logon Remote Machine With The New User *grader*
-- On local machine,
+### 4. Logon Virtual Machine With The New User *grader*
+- On host machine,
     - Execute the following:
 
         `<path/to/ssh-keygen>/ssh-keygen`
@@ -181,10 +225,10 @@ tab, and configuring the firewall to match the internal firewall settings above 
         - Copy the contents of ssh key pair file    *(ex. grader_key.pub)*
 
             `cat / <path/to/ssh-keygen> grader_key.pub`
-        - Log in to the remote machine
+        - Log in to the virtual machine
 
             ` ssh -i </path/to/ssh key pairs>.pem -p 2200 ubuntu@<aws lightsail public ip>`
-- On remote machine,
+- On virtual machine,
     - Switch to the new user grader home directory
 
         `su - grader`
@@ -206,19 +250,19 @@ tab, and configuring the firewall to match the internal firewall settings above 
         # Change to no to disable tunnelled clear text passwords
         'PasswordAuthentication  'no'
         ```
-- On local machine,
-    - login to remote machine with the new user "grader"
+- On host machine,
+    - login to virtual machine with the new user "grader"
 
     `ssh -i <ssh key pair> -p 2200 <new user>@<aws lightsail public ip>`   *(ex. grader_key)*
 
-### 5. Set The Local Timezone to UTC on Remote Machine
+### 5. Set The Local Timezone to UTC on Virtual Machine
 - Execute the following command,
 
     `sudo dpkg-reconfigure tzdata`
 - Go to bottom, and select “None of the above”
 - Select "UTC"
 
-### 6. Install Apache2, Python3.5, and Mod_Wsgi on Remote Machine
+### 6. Install Apache2, Python3.5, and Mod_Wsgi on Virtual Machine
 - Install apache2,
 
     ```
@@ -240,7 +284,7 @@ tab, and configuring the firewall to match the internal firewall settings above 
     sudo service apache2 restart            *****  activate the new configuration
     ```
 
-### 7. Install and Start Postgresql on Remote Machine
+### 7. Install and Start Postgresql on Virtual Machine
 - Install postgresql
 
     `sudo apt-get install postgresql postgresql-contrib`
@@ -423,4 +467,4 @@ tab, and configuring the firewall to match the internal firewall settings above 
     `sudo service apache2 restart`
 
 ***
-![Catalog App Home Page](http://clappaws.club/catalog.png)
+![Catalog App Home Page](http://clappaws.club/static/img/catalog.png)
