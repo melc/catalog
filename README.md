@@ -1,5 +1,5 @@
 # Catalog App
-[http://clappaws.club/](http://clappaws.club/)
+[http://clappaws.club/](http://clappaws.club/)  [http://34.214.27.203/](http://34.214.27.203/)
 
 Catalog app is a small restful CRUD app with python flask and postgresql sqlalchemy deploying on
 apache2 server hosted on AWS lightsail ubuntu 16.04 LTS. This app is to display sport equipments categories and items
@@ -7,34 +7,47 @@ to the general public, and allow authorized users to create, update, and delete 
 
 ## Technical Features
 
-include: 
-
-- Python 3.5/3.6  
-- Flask Framework
-- Mod_WSGI
-- Flask Login
-- Flask OAuthlib *(login via google and facebook oauth2)*
-- Flask WTForms *(validate form elements)*
-- Flask Flash *(display flash messages)*
-- Postgresql
-- SQLAlchemy
-- Twitter Bootstrap 4
-- Coverage and Tox *(cross-platform cross-version test tools)*
 - Apache2
 - Ubuntu 16.04 on AWS lightsail
 - VirtualEnv
 - Virtualbox and Vagrant
+- Python 3.5/3.6  
+- Twitter Bootstrap 4
+- Coverage and Tox *(cross-platform cross-version test tools)*
+- Flask Framework
+- Mod_WSGI
+- Flask Login
+- Flask OAuthlib 
+- Flask WTForms *(validate form elements)*
+- Flask Flash *(display flash messages)*
+- Flash SQLAlchemy 
+- Postgresql
+- SQLAlchemy
+- Psycopg2
+- Jinja2
+- Werkzeug
+- Ratelimit
+- Decorator
+- Requests
+- Oauthlib
+- Itsdangerous
+- MarkupSafe
+- Pep8
 
 ## Functional Features 
-
-include: 
 
 - Create blueprints to distribute a large app into resuable components
 - Utilize restful CRUD to create/update/delete categories and items records by authoirzed users 
 - Employ authentication and authorization to grant CRUD access to authorized users
 - Generate catalog.json endpoint at *http://<host>/catalog.json*
-- Assign a new user "grader" the permission to access project source codes on AWS lightsail
 - Add a new database user "catalog" with limited permission (CreateDB only)
+
+## Configuration Features
+
+- Change ssh port from 22 to 2200
+- Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), 
+HTTP (port 80), and NTP (port 123)
+- Assign a new user "grader" the permission to access apache server on AWS lightsail
 
 ## Steps of Installation and Configuration on Virtual Machine
 ### 1. Install Virtualbox
