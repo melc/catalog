@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3.5
 activator = '/var/www/catalog/venv/bin/activate_this.py'  
 # Looted from virtualenv; should not require modification, since it's defined relatively
 

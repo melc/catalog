@@ -1,6 +1,7 @@
 from wtforms import StringField, TextAreaField, IntegerField, validators, Form
 from flask import flash
 
+
 # set error messages of form validation
 def flash_errors(form):
     for field, errors in form.errors.items():
@@ -9,6 +10,7 @@ def flash_errors(form):
                 getattr(form, field).label.text,
                 error
             ))
+
 
 # validate form elements of creating category
 class AddCat(Form):

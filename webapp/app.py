@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3.5
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -7,7 +7,7 @@ from flask_oauthlib.client import OAuth
 
 app = Flask(__name__)
 
-app.config.from_pyfile('/var/www/catalog/config.py')
+app.config.from_pyfile('/home/melc/Downloads/fullstack_web_developer/projects/catalog/config.py')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)

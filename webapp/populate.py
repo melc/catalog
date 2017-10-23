@@ -12,7 +12,7 @@ from flask import flash
 def get_category():
     list = []
     for row in Category.query.order_by(Category.id).all():
-        (row.__dict__).pop('_sa_instance_state', None)
+        row.__dict__.pop('_sa_instance_state', None)
         list.append(row.__dict__)
 
     return list
@@ -26,9 +26,9 @@ def get_all_items():
     # convert category query result to dictionary
     for row_cat in Category.query.order_by(Category.id).all():
 
-        (row_cat.__dict__).pop('_sa_instance_state', None)
+        row_cat.__dict__.pop('_sa_instance_state', None)
         dict_cat = row_cat.__dict__
-        catid = (row_cat.__dict__)["id"]
+        catid = row_cat.__dict__["id"]
 
         list_cat = []
 
@@ -36,7 +36,7 @@ def get_all_items():
         # store all items corresponding to a category
         # in array
         for row_item in Item.query.filter(Item.cat_id == catid).all():
-            (row_item.__dict__).pop('_sa_instance_state', None)
+            row_item.__dict__.pop('_sa_instance_state', None)
 
             list_cat.append(row_item.__dict__)
 
@@ -58,7 +58,7 @@ def get_item_by_cat(cat_name):
     list = []
     for row in Item.query.join(Category).filter(Item.cat_id == Category.id). \
             filter(func.lower(Category.name) == func.lower(cat_name)).order_by(Item.title).all():
-        (row.__dict__).pop('_sa_instance_state', None)
+        row.__dict__.pop('_sa_instance_state', None)
         list.append(row.__dict__)
 
     return list
@@ -105,9 +105,9 @@ def insert_cat(name):
             db.session.add(new_cat)
             db.session.commit()
             return True
-        except:
+        except Exception as e:
             db.session.rollback()
-            raise
+            print(e)
         finally:
             db.session.close()
 
@@ -125,9 +125,9 @@ def update_cat(itemlist):
             db.session.query(Category).filter_by(id=itemlist["id"]).update({"name": itemlist["name"]})
             db.session.commit()
             return True
-        except:
+        except Exception as e:
             db.session.rollback()
-            raise
+            print(e)
         finally:
             db.session.close()
 
@@ -148,9 +148,9 @@ def insert_item(itemlist):
         db.session.add(new_item)
         db.session.commit()
         return True
-    except:
+    except Exception as e:
         db.session.rollback()
-        raise
+        print(e)
     finally:
         db.session.close()
 
@@ -165,9 +165,9 @@ def update_item(itemlist):
                                                                          "cat_id": qry})
         db.session.commit()
         return True
-    except:
+    except Exception as e:
         db.session.rollback()
-        raise
+        print(e)
     finally:
         db.session.close()
 
@@ -178,8 +178,8 @@ def delete_item(item_id):
         db.session.query(Item).filter_by(id=item_id).delete()
         db.session.commit()
         return True
-    except:
+    except Exception as e:
         db.session.rollback()
-        raise
+        print(e)
     finally:
         db.session.close()

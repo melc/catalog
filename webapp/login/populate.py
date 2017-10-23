@@ -33,9 +33,9 @@ def insert_google_user(data):
 
             return new_user
 
-        except:
+        except Exception as e:
             db.session.rollback()
-            raise
+            print(e)
         finally:
             db.session.close()
 
@@ -64,9 +64,9 @@ def insert_facebook_user(data):
 
             return new_user
 
-        except:
+        except Exception as e:
             db.session.rollback()
-            raise
+            print(e)
         finally:
             db.session.close()
 
