@@ -114,7 +114,7 @@ file *config.py*
     psql vagrant
     CREATE DATABASE catalog;
     ```
-- Replace line of code in the file *run.py*, 
+- Replace line of code in the file *application.py*, 
     
     ```
     old code: app.run(debug=True)
@@ -128,9 +128,9 @@ file *config.py*
     
     new code: app.config.from_object('config')
     ```    
-- Launch run.py
+- Launch application.py
 
-    `python3.5 run.py`
+    `python3.5 application.py`
 
 
 ## Steps of Installation and Configuration on Apache with AWS Lightsail Ubuntu 16.04 LTS
@@ -364,9 +364,9 @@ tab, and configuring the firewall to match the internal firewall settings above 
 - Check if dependencies installed correctly
 
     `cd venv/lib/python3.5/site-packages`
-- Run catalog application on default localhost *http://127.0.0.1:5000/*
+- Run catalog application on localhost *http://localhost:8000/*
 
-    `python3.5 run.py`
+    `python3.5 application.py`
 - Deactivate virtual environment
 
     `deactivate`
