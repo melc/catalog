@@ -101,6 +101,10 @@ file *config.py*
     `vagrant ssh`     *(note: $ will be changed to vagrant@vagrant:~$)*
 
 ### 6. Launch the Application
+- Install python dependencies
+    
+    `sudo python3.5 -m pip install -r requirements.txt`
+    
 - Reset database user *vagrant* password if prompted
     
     ```
