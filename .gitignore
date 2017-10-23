@@ -4,6 +4,7 @@
 .coverage
 *.egg-info
 catenv
+.idea
 
 # Logs and databases #
 ######################
