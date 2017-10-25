@@ -10,9 +10,9 @@
                 {% endif %}
             </h4>
             {% for catList in catLists %}
-                <div class="category_flex list-group-item list-group-item-action">
+                <div class="category-flex list-group-item list-group-item-action">
 
-                    <div class="category_box"><a class="list-group-item list-group-item-action"
+                    <div class="category-box"><a class="list-group-item list-group-item-action"
                                                  id="list-cat-{{ catList['id'] }}-list" data-toggle="list"
                                                  href="#list-cat-{{ catList['id'] }}" role="tab"
                                                  aria-controls="{{ catList['id'] }}">{{ catList["name"] }}</a></div>
@@ -23,7 +23,7 @@
                                 <i class="fa fa-pencil fa-red fa-add" aria-hidden="true" data-toggle="tooltip"
                                    data-placement="bottom" title="Edit Category"></i></a>
                         </div>
-                        <div class="item_add_icon"><a href="#" class="add-item-btn"
+                        <div class="item-add-icon"><a href="#" class="add-item-btn"
                                                       id="item-btn-add-{{ catList['id'] }}" data-toggle="modal"
                                                       data-target="#add-item-{{ catList['id'] }}">
                             <i class="fa fa-plus-square-o fa-red fa-add" aria-hidden="true" data-toggle="tooltip"

@@ -4,18 +4,18 @@
          aria-labelledby="list-{{ countCats['id'] }}">
         <div class="list-group">
             {% for catItem in catItems %}
-                <div class="item_flex list-group-item list-group-item-action">
-                    <div class="item_box"><a href="#" class="list-group-item list-group-item-action"
+                <div class="item-flex list-group-item list-group-item-action">
+                    <div class="item-box"><a href="#" class="list-group-item list-group-item-action"
                                              id="cat-{{ catItem['id'] }}"
                                              data-toggle="modal" data-target="#displayItem-{{ catItem['id'] }}-modal">
                         {{ catItem["title"] }}</a></div>
                     {% if find_user is not none and current_user.is_authenticated %}
-                        <div class="item_edit_icon">
+                        <div class="item-edit-icon">
                             <a href="#" class="edit-item-btn" id="item-btn-edit-{{ catItem['id'] }}" data-toggle="modal"
                                data-target="#edit-item-{{ catItem['id'] }}">
                                 <i class="fa fa-pencil-square-o fa-red fa-edit" aria-hidden="true" data-toggle="tooltip"
                                    data-placement="bottom" title="Edit Item"></i></a></div>
-                        <div class="item_delete_icon">
+                        <div class="item-delete-icon">
                             <a href="#" class="delete-item-btn" id="item-btn-del-{{ catItem['id'] }}" data-toggle="modal"
                                data-target="#delete-item-{{ catItem['id'] }}">
                                 <i class="fa fa-window-close fa-red fa-delete" aria-hidden="true" data-toggle="tooltip"

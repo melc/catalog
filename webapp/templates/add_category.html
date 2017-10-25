@@ -1,3 +1,6 @@
+{# start add_category.html #}
+{# Open bootstrap modal to create a new category name in the form #}
+{# Route: /category/add #}
 <div class="modal fade" id="add-cat" tabindex="-1" role="dialog"
      aria-labelledby="add-cat" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -9,6 +12,7 @@
                 </button>
             </div>
             <div class="modal-body">
+            {# Pop up flash error messages if applicable #}
                 <div class="modal-error">
                     {% with errors = get_flashed_messages(with_categories=true) %}
                         {% if errors %}
@@ -21,19 +25,23 @@
                         {% endif %}
                     {% endwith %}
                 </div>
+            {#  end of flash error messages #}
+            {#  create a form to enter category name #}
                 <form action="/category/add" method="POST" name="post" role="form">
                     <div class="form-group">
                         <label for="add-cat-name" class="form-control-label">Name<span
-                                class="req_symbol">*</span>:</label>
+                                class="required-field-asterisk">*</span>:</label>
                         <input type="text" class="form-control" id="add-cat-name" name="name">
                     </div>
-                    <div class="textAlign">
-                        <button type="button" id="modal-cancel" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <div class="text-align">
+                        <button type="button" id="modal-cancel" class="btn btn-secondary"
+                                data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
+            {#  end of form #}
             </div>
         </div>
     </div>
 </div>
-{# end of display the selected item contents #}
+{#  end of add_category.html #}

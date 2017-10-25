@@ -18,6 +18,7 @@
             </div>
             <div class="footer">
                 <br/>
+                {# Pop up flash error messages if applicable #}
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
                         {% for message in messages %}
@@ -34,6 +35,7 @@
                         {% endfor %}
                     {% endif %}
                 {% endwith %}
+                {# end of flash error messages #}
             </div>
         </div>
     </div>
