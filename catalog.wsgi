@@ -11,6 +11,6 @@ import logging
 logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,"/var/www/catalog/")
 
-from run import app  as application
+from application import app  as application
 
 
