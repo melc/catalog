@@ -1,28 +1,7 @@
-@media (max-width: 768px) {
-    width: 768px;
-    *width: 768px;
+html, body {
+    max-width: 100%;
+    max-height: 100%;
 }
-
-@media (min-width: 768px) {
-    .fivecolumns .col-sm-2 {
-        width: 20%;
-        *width: 20%;
-    }
-}
-
-@media (min-width: 1200px) {
-    .fivecolumns .col-lg-2 {
-        width: 20%;
-        *width: 20%;
-    }
-}
-@media (min-width: 992px) {
-    .fivecolumns .col-md-2 {
-        width: 20%;
-        *width: 20%;
-    }
-}
-
 
 main {
     margin-top: 20px;
@@ -67,7 +46,7 @@ logout {
 }
 
 
-.iconStyle {
+.icon-style {
     width: 26px !important;
     height: 26px !important;
     margin-right: 12px;
@@ -78,18 +57,18 @@ i {
     color: white;
 }
 
-.iconStyle > a:hover > i {
+.icon-style > a:hover > i {
     color: #4099FF;
 }
 
-.logoDIV > a > .logo  {
+.logo-div > a > .logo  {
     width: 114px;
     height: 114px;
     border-radius: 5px;
     opacity: 0.9;
 }
 
-.logoDIV a:hover .logo {
+.logo-div a:hover .logo {
     opacity: 0.5 !important;
 }
 
@@ -142,13 +121,13 @@ hr {
     color: #212529 !important;
 }
 
- .delete_confirm {
+.delete-confirm {
     color: navy;
     font-weight: 700;
     font-style: italic;
  }
 
- .category_flex, .item_flex  {
+.category-flex, .item-flex  {
     display: -webkit-flex; /* Safari */
     -webkit-flex-flow: wrap; /* Safari 6.1+ */
     display: flex;
@@ -163,36 +142,61 @@ hr {
 }
 
 
- .category_box > .list-group-item, .category_box > .list-group-item.list-group-item-action,
- .item_box > .list-group-item, .item_box > .list-group-item.list-group-item-action {
+.category-box > .list-group-item, .category-box > .list-group-item.list-group-item-action,
+.item-box > .list-group-item, .item-box > .list-group-item.list-group-item-action {
     border: none;
     padding: 0px;
     margin: 0px;
     background: none;
  }
 
- .item_add_icon, .item_delete_icon {
+.item-add-icon, .item-delete-icon {
     width: 5%;
  }
 
-.cat-edit-icon,  .item_edit_icon {
+.cat-edit-icon,  .item-edit-icon {
     width: 7%;
  }
 
- .category_box, .item_box {
+.category-box, .item-box {
     width: 88%;
 }
 
-.req_symbol {
+.required-field-asterisk {
     color: red;
     font-weight: bold;
 }
 
-.textAlign {
+.text-align {
     text-align:right !important;
 }
 
 .btn-google, .btn-facebook {
     width: 48%;
     margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .col  {
+        width: 768px;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .col-sm-2  {
+        width: 20%;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-2 {
+        width: 20%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-2 {
+        width: 20%;
+    }
 }

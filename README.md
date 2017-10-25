@@ -2,16 +2,16 @@
 [http://clappaws.club/](http://clappaws.club/)   
 [http://34.214.27.203/](http://34.214.27.203/)
 
-Catalog app is a small restful CRUD app with python flask and postgresql sqlalchemy deploying on
-apache2 server hosted on AWS lightsail ubuntu 16.04 LTS. This app is to display sport equipments categories and items
-to the general public, and allow authorized users to create, update, and delete categories and items.
+Catalog app is a small restful CRUD app with python flask and postgresql sqlalchemy 
+deploying on apache2 server hosted on AWS lightsail ubuntu 16.04 LTS. This app is to 
+display sport equipments categories and items to the general public, and 
+allow authorized users to create and update categories and items, and delete items.
 
 ## Technical Features
 
 - Apache2
 - Ubuntu 16.04 on AWS lightsail
 - VirtualEnv
-- Virtualbox and Vagrant
 - Python 3.5/3.6  
 - Twitter Bootstrap 4
 - Coverage and Tox *(cross-platform cross-version test tools)*
@@ -34,11 +34,13 @@ to the general public, and allow authorized users to create, update, and delete 
 - Itsdangerous
 - MarkupSafe
 - Pep8
+- Virtualbox and Vagrant
 
 ## Functional Features 
 
-- Create blueprints to distribute a large app into resuable components
-- Utilize restful CRUD to create/update/delete categories and items records by authoirzed users 
+- Create blueprints to distribute a large app into reusable components
+- Utilize restful CRUD to create/update/delete categories and items records 
+by authoirzed users 
 - Employ authentication and authorization to grant CRUD access to authorized users
 - Generate catalog.json endpoint at *http://<host>/catalog.json*
 - Add a new database user "catalog" with limited permission (CreateDB only)
@@ -46,11 +48,12 @@ to the general public, and allow authorized users to create, update, and delete 
 ## Configuration Features
 
 - Change ssh port from 22 to 2200
-- Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), 
+- Configure the Uncomplicated Firewall (UFW) to only allow incoming connections 
+for SSH (port 2200), 
 HTTP (port 80), and NTP (port 123)
 - Assign a new user "grader" the permission to access apache server on AWS lightsail
 
-## Steps of Installation and Configuration on Virtual Machine
+## Installation and Configuration on Virtual Machine
 ### 1. Install Virtualbox
 - Download virtual box from *https://www.virtualbox.org/wiki/Download_Old_Builds_5_1*
 - Follow the instructions to setup virtualbox
@@ -60,21 +63,22 @@ HTTP (port 80), and NTP (port 123)
 - follow the instructions to set up git bash 
 
 ### 3. Install Vagrant
-- Download vagrant from *https://www.vagrantup.com/downloads*
-- Follow the instructions to setup vagrant.  *(Note: if the current version is non-compatiable with your OS,
-downgrade the version)*
+- Download old version of vagrant from *https://www.vagrantup.com/downloads* if 
+the current version is non-compatiable with your OS. 
+- Follow the instructions to setup vagrant.  
 
 ### 4. Download Vagrantfile and Source Codes
-- Download from *https://github.com/udacity/fullstack-nanodegree-vm*
-- Download source codes from *https://github.com/melc/catalog*
+- Create a folder *vagrant*
+- Download *vagrantfile* from *https://github.com/udacity/fullstack-nanodegree-vm*
+to the folder vagrant
+- Git clone from *https://github.com/melc/catalog* to the folder vagrant
 
     ```
-    cd fullstack-nanodegree-vm/vagrant
-    cd catalog
+    cd /vagrant
     git clone https://github.com/melc/catalog
     ```
-- Createa a new file *config.py", copy the following lines of codes and paste to the 
-file *config.py*
+- Createa a new file *config.py* in the folder catalog, copy the following lines of 
+codes and paste to the file *config.py*, insert your values.
    
     ```
     import os
@@ -82,21 +86,21 @@ file *config.py*
     DEBUG = True
     CSRF_ENABLED = True
     SECRET_KEY = os.urandom(20)
-    GOOGLE_CLIENT_ID = <google client_id>
-    GOOGLE_CLIENT_SECRET = <google client secret>
-    FACEBOOK_APP_ID = <facebook app id>
-    FACEBOOK_APP_SECRET = <facebook app secret>
-    SQLALCHEMY_DATABASE_URI = 'postgresql://vagrant:vagrant@localhost:5432/catalog'
+    GOOGLE_CLIENT_ID = 
+    GOOGLE_CLIENT_SECRET = 
+    FACEBOOK_APP_ID = 
+    FACEBOOK_APP_SECRET = 
+    SQLALCHEMY_DATABASE_URI = 'postgresql://<user name>:<password>@localhost:5432/catalog'
     ```
 
 ### 5. Configure Virtual Machine
 - Install ubuntu 16.04 LTS
 
     ```
-    cd vagrant/
-    vagrant up
+    cd /vagrant
+    vagrant up   
     ```
-- Login to installed ubuntu VM
+- Logon installed ubuntu VM
 
     `vagrant ssh`     *(note: $ will be changed to vagrant@vagrant:~$)*
 
@@ -105,17 +109,10 @@ file *config.py*
     
     `sudo python3.5 -m pip install -r requirements.txt`
     
-- Reset database user *vagrant* password if prompted
-    
-    ```
-    psql postgres
-    ALTER ROLE vagrant WITH ENCRYPTED 
-    ```
-    
 - Create database *catalog*
     
     ```
-    psql vagrant
+    psql
     CREATE DATABASE catalog;
     ```
 - Replace line of code in the file *application.py*, 
@@ -125,7 +122,7 @@ file *config.py*
     
     new code: app.run(debug=True, host='0.0.0.0', port=8000)
     ```
-- Replace line of code in the file *app.py"  *(webapp/app.py)*
+- Replace line of code in the file *catalog/webapp/app.py*
     
     ```
     old code: app.config.from_pyfile('/var/www/catalog/config.py')
@@ -136,18 +133,22 @@ file *config.py*
 
     `python3.5 application.py`
 
+- Open browser and type in `localhost:8000`
 
-## Steps of Installation and Configuration on Apache with AWS Lightsail Ubuntu 16.04 LTS
+
+## Installation and Configuration on Apache With AWS Lightsail Ubuntu 16.04 LTS
 ### 1. Set up AWS Lightsail
 - Create an account on *http://aws.amazon.com*
-- On AWS Managament Console select Lightsail
-- Choose OS only Ubuntu 16.04 LTS
-- Change SSH key pair from default to a new ssh key pairs and download to your host machine
-- Create Instance and Static IP, attach static ip to instance
+- On AWS Managament Console select *Lightsail*
+- Choose *OS only* and *Ubuntu 16.04 LTS*
+- Create a new SSH key pairs in lieu of default one and download to your host machine
+with the file extension .pem
+- Create *Instance* and *Static IP*, attach static ip to instance
 
 ### 2. Configure the Firewall (Change ssh port from 22 to 2200)
-- Open the file /etc/ssh/sshd_config on host machine, change the port number 22 to 2200.
-- Click on the button "Connect using SSH", and execute the following commands on virtual machine
+- Open the file */etc/ssh/sshd_config* on virtual machine, change the port number 22 to 2200.
+- On AWS lightsail main page, click on the button *Connect using SSH*, and execute 
+the following commands on virtual machine
     ```
     sudo service ssh restart
     sudo ufw status
@@ -173,16 +174,16 @@ file *config.py*
     80/tcp (v6) | ALLOW | Anywhere (v6)
     123/udp (v6) | ALLOW | Anywhere (v6)
 
-- Update external firewall by clicking on the AWS lightsail instance, then selecting the 'Networking' 
-tab, and configuring the firewall to match the internal firewall settings above (123(UDP) and 
-2200(TCP));
-- Change the permission of ssh key pairs file to readonly on host machine
+- Click on *Networking" tab on AWS lightsail main page to update firewall information.
+Add custom TCP port 2200, and custom UDP port 123
+- Change the permission of ssh key file on host machine
 
-    `chmod 600 </path/to/ssh key pairs>.pem`
+    `chmod 600 </path/to/ssh key file with file extension .pem>`
 
 - Logon virtual machine
 
-    `ssh -i </path/to/ssh key pairs>.pem -p 2200 ubuntu@<aws lightsail public ip>`
+    `ssh -i </path/to/ssh key file with file extension .pem> -p 2200 
+    ubuntu@<aws lightsail public ip>`
 
 ### 3. Create New User *grader* With `sudo` Permission on Virtual Machine
 - Create a new user *grader*
@@ -191,11 +192,13 @@ tab, and configuring the firewall to match the internal firewall settings above 
 - Enter passphrase twice
 - Check if the new user was created successfully
 
-    `su - grader`       (the user should be changed from ubuntu to grader)
+    `su - grader`       *(note: the user should be changed from ubuntu to grader)*
 - Grant *sudo* permission to the new user
 
-    `sudo visudo`       (make sure the user is ubuntu in lieu of grader)
-
+    ```
+    exit
+    sudo visudo       *(note: make sure the user is ubuntu)*
+    ```
     Insert the following line of codes under `root ALL=(ALL:ALL) ALL`
 
     `grader ALL=(ALL:ALL) ALL`
@@ -221,50 +224,55 @@ tab, and configuring the firewall to match the internal firewall settings above 
 
 ### 4. Logon Virtual Machine With The New User *grader*
 - On host machine,
-    - Execute the following:
+    - Execute the following command to generate private and public SSH key pairs
 
         `<path/to/ssh-keygen>/ssh-keygen`
-    - Choose a file name for the ssh key pair   *(ex. grader_key)*
-        - Enter passphrase twice
-        - Copy the contents of ssh key pair file    *(ex. grader_key.pub)*
+    - Choose a file name for the ssh key pairs   *(ex. grader_key as private key and
+    grader_key.pub as public key)*
+    - Enter passphrase twice 
+    - Logon to the virtual machine with the user *ubuntu*
 
-            `cat / <path/to/ssh-keygen> grader_key.pub`
-        - Log in to the virtual machine
-
-            ` ssh -i </path/to/ssh key pairs>.pem -p 2200 ubuntu@<aws lightsail public ip>`
+        ` ssh -i </path/to/ssh key file with the file extention .pem> -p 2200 
+        ubuntu@<aws lightsail public ip>`
 - On virtual machine,
-    - Switch to the new user grader home directory
+    - Switch to the new user *grader* home directory
 
         `su - grader`
-    - Create a new directory .ssh
+    - Create a new directory *.ssh*
 
         `sudo mkdir .ssh`
     - Create a new file authorized_keys
 
         `touch ~/.ssh/authorized_keys`
-    - Paste the contents of ssh key pair file into authorized_keys
-        - Change .ssh and authorized_keys permissions.
+    - Copy the contents in the public ssh key file (ex. *grader_key.pub*) on host machine and 
+    paste to the file *authorized_keys*
+
+        `cat / <path/to/ssh-keygen> grader_key.pub`
+    - Change *.ssh* and *authorized_keys* permissions.
+        
         ```
         chmod 700 .ssh
         chmod 644 .ssh/authorized_keys
         ```
-        - Check PasswordAuthentication setting
-            open the file /etc/ssh/sshd_config, and find the following line,
+    - Check PasswordAuthentication setting
+        open the file */etc/ssh/sshd_config*, and find the following line,
+        
         ```
         # Change to no to disable tunnelled clear text passwords
         'PasswordAuthentication  'no'
         ```
 - On host machine,
-    - login to virtual machine with the new user "grader"
+    - logon virtual machine with the new user *grader*
 
-    `ssh -i <ssh key pair> -p 2200 <new user>@<aws lightsail public ip>`   *(ex. grader_key)*
+        `ssh -i <private ssh key pair> -p 2200 <new user>@<aws lightsail public ip>`   
+    *(ex. grader_key)*
 
 ### 5. Set The Local Timezone to UTC on Virtual Machine
 - Execute the following command,
 
     `sudo dpkg-reconfigure tzdata`
-- Go to bottom, and select “None of the above”
-- Select "UTC"
+- Go to bottom, and select *None of the above*
+- Select *UTC*
 
 ### 6. Install Apache2, Python3.5, and Mod_Wsgi on Virtual Machine
 - Install apache2,
@@ -283,6 +291,7 @@ tab, and configuring the firewall to match the internal firewall settings above 
 
     `sudo apt-get update && sudo apt-get upgrade`
 - Enable apache module, mod wsgi, and restart apache
+
     ```
     sudo a2enmod wsgi		                *****  enabling module wsgi
     sudo service apache2 restart            *****  activate the new configuration
@@ -297,7 +306,7 @@ tab, and configuring the firewall to match the internal firewall settings above 
     `sudo /etc/init.d/postgresql start`
 
 ### 8. Create Database *catalog* and Assign its Ownership to Superuser *vagrant*
-- Create a database superuser *vagrant*
+- Create a database user *vagrant*
 
     ```
     sudo -u postgres -i
@@ -305,21 +314,21 @@ tab, and configuring the firewall to match the internal firewall settings above 
     CREATE ROLE vagrant WITH LOGIN;
     ALTER ROLE vagrant with ENCRYPTED PASSWORD 'vagrant';
     ```
-- Create database catalog with superuser owner *vagrant*
+- Create database *catalog* with superuser owner *vagrant*
 
     ```
     CREATE DATABASE catalog OWNER 'vagrant';
     ALTER ROLE vagrant SUPERUSER;
     ```
-- Insert the following line of codes into the file /etc/postgresql/9.5/main/pg_hba.conf
-
+- Insert the following line of codes into the file */etc/postgresql/9.5/main/pg_hba.conf*
+    
     ```
     local       all             vagrant                 peer
     ```
 
 ### 9. Create Postgresql User With Limited Permissions
 - Create a database user *catalog*
-
+    
     ```
     sudo /etc/init.d/postgresql restart
     sudo -u postgres -i
@@ -330,21 +339,22 @@ tab, and configuring the firewall to match the internal firewall settings above 
 - Assign create database permission to new user *catalog*
 
     `ALTER ROLE catalog WITH CREATEDB;`
-- Insert the following line of codes into the file */etc/postgresql/9.5/main/pg_hba.conf*
+- Insert the following line of codes into the file */etc/postgresql/9.5/main/pg_hba.conf*.  
+Replace *db user name* with your database user name  *(ex. catalog)*
 
    `local    all             	<db user name>                                md5`
 - Restart postgresql
 
     `sudo /etc/init.d/postgresql restart`
 
-### 10. Download Catalog Source Codes From Github, Set up Virtual Environment, and Install Dependencies
-- Download project catalog from github
+### 10. Git Clone Source Codes, Set up Virtual Environment, and Install Dependencies
+- Git clone source codes
 
     ```
     cd /var/www/
     git clone https://github.com/melc/catalog
     ```
-- Change ownership of catalog to ubuntu
+- Change file ownership of *catalog* package to ubuntu
 
     `sudo chown -R ubuntu:ubuntu /var/www/catalog`
 - Install virtualenv
@@ -368,69 +378,69 @@ tab, and configuring the firewall to match the internal firewall settings above 
 - Check if dependencies installed correctly
 
     `cd venv/lib/python3.5/site-packages`
-- Run catalog application on localhost *http://localhost:8000/*
+- Run *catalog* application to make sure application working properly
 
-    `python3.5 application.py`
+    ```
+    python3.5 application.py
+    go to browser and type in *http://localhost:8000/*
+    ```
 - Deactivate virtual environment
 
     `deactivate`
 
-### 11. Set Environment Variables Being Used in Catalog App
-- Create a file *config.py*
-
-    `touch /var/www/catalog/config.py`
-- Copy the following lines of codes and paste to the file *config.py*
+### 11. Create Configuration File
+- Createa a new file *config.py* in the folder */var/www/catalog*, 
+copy the following lines of codes and paste into the file *config.py*, insert your values.
+   
     ```
     import os
 
     DEBUG = True
     CSRF_ENABLED = True
     SECRET_KEY = os.urandom(20)
-    GOOGLE_CLIENT_ID = <google client_id>
-    GOOGLE_CLIENT_SECRET = <google client secret>
-    FACEBOOK_APP_ID = <facebook app id>
-    FACEBOOK_APP_SECRET = <facebook app secret>
-    SQLALCHEMY_DATABASE_URI = 'postgresql://vagrant:vagrant@localhost:5432/catalog'
+    GOOGLE_CLIENT_ID = 
+    GOOGLE_CLIENT_SECRET = 
+    FACEBOOK_APP_ID = 
+    FACEBOOK_APP_SECRET = 
+    SQLALCHEMY_DATABASE_URI = 'postgresql://<user name>:<password>@localhost:5432/catalog'
     ```
 
 ### 12. Setup Google and Facebook API accounts
 - Setup google api account
-    - Go to google deveoper console, *https://console.developers.google.com/apis/dashboard*
+    - Go to google developer console, *https://console.developers.google.com/apis/dashboard*
     - Select credentials, create Client ID and Client Secret
-    - Copy Client ID and Client Secret to the file *config.py*
-    - Setup authorized javascript origins *(ex. http://127.0.0.1:5000)*
-    - Setup authorized redirect URIs  *(ex. http://127.0.0.1:5000/login/google_authorized)
+    - Copy Client ID and Client Secret, and paste to the file *config.py*
+    - Setup `authorized javascript origins`   *(ex. http://127.0.0.1:5000)*
+    - Setup `authorized redirect URIs`   *(ex. http://127.0.0.1:5000/login/google_authorized)
 - Setup facebook api account
     - Go to facebook graph api console, *https://developers.facebook.com/*
-    - Choose facebook login, click on `My Apps` on top right screen, select `Add a New App`
+    - Choose product *facebook login*, click on `My Apps` on top right screen, 
+    select `Add a New App`
     - Follow the instruction to create APP ID and APP SECRET
-    - Copy APP ID and APP SECRET to the file *config.py*
-    - Select facebook login dashboard, set `Client OAuth Login` to `Yes`, `Web OAuth Login` to `Yes`
-    - Setup valid oauth redirect URIs  *(ex. http://127.0.0.1:5000/login/facebook_authorized)*
+    - Copy APP ID and APP SECRET, paste to the file *config.py*
+    - Select facebook login dashboard, set `Client OAuth Login` to `Yes`, 
+    `Web OAuth Login` to `Yes`
+    - Setup `valid oauth redirect URIs`  *(ex. http://127.0.0.1:5000/login/facebook_authorized)*
 
-### 13.  Configure virtual host
-- Configure virtual host
+### 13.  Configure Virtual Host
+- Create a new file *catalog.conf*
+- Copy the following lines of codes and paste into the file *catalog.conf*
 
-    ```
-    touch  /etc/apache2/sites-available/catalog.conf
-    copy and paste the following lines of codes into the file *catalog.conf*
-    ```
     ```
     <VirtualHost *:80>
         ServerName XX.XX.XX.XX
         ServerAdmin xxx@gmail.com
+        
         WSGIScriptAlias / /var/www/catalog/catalog.wsgi
         <Directory /var/www/catalog/webapp/>
             Order allow,deny
             Allow from all
-            Options -Indexes
         </Directory>
         Alias /static /var/www/catalog/webapp/static
 
         <Directory /var/www/catalog/webapp/static>
             Order allow,deny
             Allow from all
-            Options -Indexes
         </Directory>
         ErrorLog ${APACHE_LOG_DIR}/error.log
         LogLevel warn
@@ -442,17 +452,18 @@ tab, and configuring the firewall to match the internal firewall settings above 
     a2dissite 000-default					*** disable default configuration file
     sudo a2ensite catalog					*** enable new created configuration file
     sudo service apache2 restart
-    sudo apache2ctl restart
     ```
 
-### 14. Configure .wsgi file
-- Create .wsgi file */var/www/catalog/catalog.wsgi*
+### 14. Configure WSGI
+- Create WSGI file */var/www/catalog/catalog.wsgi*
 - Add the following lines of codes into the file *catalog.wsgi*
 
     ```
-    #!/usr/bin/python
+    #!/usr/bin/env python3.5
     activator = '/var/www/catalog/venv/bin/activate_this.py'
-    # Looted from virtualenv; should not require modification, since it's defined relatively
+
+    # Looted from virtualenv; should not require modification, 
+    since it's defined relatively
 
     with open(activator) as f:
         exec(f.read(), {'__file__': activator})
@@ -463,7 +474,7 @@ tab, and configuring the firewall to match the internal firewall settings above 
     logging.basicConfig(stream=sys.stderr)
     sys.path.insert(0,"/var/www/catalog/")
 
-    from run import app  as application
+    from run import app as application
     ```
 
 - Restart apache

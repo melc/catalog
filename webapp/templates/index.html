@@ -1,9 +1,11 @@
 {% extends "layout.html" %}
 {% block body %}
     <header>
+        {#  top menu bar for logo, login/logout and category dropdown list #}
         {% include 'menubar.html' %}
     </header>
     <main role="main">
+        {# main body to display categories and items #}
         {% include 'catalog.html' %}
     </main>
 {% endblock %}
