@@ -7,7 +7,6 @@ from webapp.login.populate import auth_user
 
 user_login = Blueprint("login", __name__)
 
-
 @login_manager.user_loader
 def load_user(id):
     user = User.query.filter_by(email=id).first()
@@ -17,7 +16,7 @@ def load_user(id):
 @user_login.route('/login/<string:api>')
 def login(api):
     if api == 'google':
-        return google.authorize(callback=url_for('login.google_authorized', _external=True))
+        return google.authorize(callback=url_for('google_authorized', _external=True))
     else:
         callback = url_for(
             'login.facebook_authorized', next=request.args.get('next')
