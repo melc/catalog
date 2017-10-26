@@ -1,4 +1,4 @@
-#!/usr/bin/python3.5
+#!/usr/bin/env python3.5
 activator = '/var/www/catalog/venv/bin/activate_this.py'  
 # Looted from virtualenv; should not require modification, since it's defined relatively
 
@@ -11,6 +11,4 @@ import logging
 logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,"/var/www/catalog/")
 
-from application import app  as application
-
-
+from application import app as application
