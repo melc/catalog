@@ -8,8 +8,7 @@ from flask_oauthlib.client import OAuth
 app = Flask(__name__)
 
 # production configuration
-# app.config.from_pyfile('/var/www/catalog/config.py')
-app.config.from_object('config')
+app.config.from_pyfile('/var/www/catalog/config.py')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)

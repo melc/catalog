@@ -16,7 +16,7 @@ def load_user(id):
 @user_login.route('/login/<string:api>')
 def login(api):
     if api == 'google':
-        return google.authorize(callback=url_for('google_authorized', _external=True))
+        return google.authorize(callback=url_for('login.google_authorized', _external=True))
     else:
         callback = url_for(
             'login.facebook_authorized', next=request.args.get('next')
@@ -40,6 +40,7 @@ def logout():
 @user_login.route('/login/google_authorized')
 def google_authorized():
     resp = google.authorized_response()
+    print(resp)
     if resp is None:
         return 'Access denied: reason=%s error=%s' % (
             request.args['error_reason'],

@@ -22,3 +22,6 @@ config.py
 
 # virtualenv
 venv
+
+# README
+README.md
